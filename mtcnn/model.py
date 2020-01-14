@@ -5,8 +5,7 @@
 
 # Standard libraries
 import math
-
-from importlib import resources
+import os
 
 # External libraries
 import torch
@@ -52,8 +51,9 @@ class MTCNN(nn.Module):
         self.onet = ONet()
 
         if pretrained:
-            with resources.path("mtcnn", "mtcnn.pth") as model_path:
-                state_dict = torch.load(model_path)
+            # with resources.path("mtcnn", "mtcnn.pth") as model_path:
+            model_path = os.path.join(os.path.dirname(__file__), 'mtcnn.pth')
+            state_dict = torch.load(model_path)
 
             self.load_state_dict(state_dict)
 
